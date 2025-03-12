@@ -159,7 +159,12 @@ export default function CheckoutPage() {
         console.error(error);
       }
     } else if (paymentMethod === "stripe") {
-      alert("online payment comming soon");
+      // alert("online payment comming soon");
+      setIsLoading(false);
+      toast({
+        variant: "destructive",
+        title: "online payment comming soon ",
+      });
     }
   };
   return (
