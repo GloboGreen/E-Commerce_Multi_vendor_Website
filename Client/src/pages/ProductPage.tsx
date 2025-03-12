@@ -196,6 +196,7 @@ export default function ProductPage() {
         finalPathName={selectedProduct?.name}
       />
       <MaxWidthWrapper className="mx-auto grid w-full grid-cols-1 gap-10 p-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
+        {/* product Carousel */}
         <Carousel
           plugins={[plugin.current]}
           onMouseEnter={plugin.current.stop}
@@ -251,7 +252,7 @@ export default function ProductPage() {
             ))}
           </CarouselContent>
         </Carousel>
-
+        {/* product details */}
         <div className="py-4 text-start md:col-span-1">
           <div>
             <p className="text-md flex items-center justify-between gap-2 capitalize text-primary">
@@ -468,13 +469,14 @@ export default function ProductPage() {
           </DropdownMenu>
         </div>
       </MaxWidthWrapper>
+      {/* product discription */}
       <MaxWidthWrapper className="lg:my-8">
         <ProductTabs
           description={selectedProduct?.description}
           specifications={selectedProduct.specifications}
         />
+        <ProductCarousel title="Similar Items" />
       </MaxWidthWrapper>
-      <ProductCarousel title="Similar Items" />
       <Footer />
     </section>
   );

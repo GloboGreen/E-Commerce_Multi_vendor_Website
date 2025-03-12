@@ -143,12 +143,6 @@ export const LookingFor: Record<string, LookingFor[]> = {
   ],
   "Mobile Accessories": [
     {
-      title: "NeckBands",
-      img: "/img/neckband.png",
-      to: "#",
-      className: " bg-gradient-to-bl from-[#707E06]/40 to-[#F5FFA6]/50",
-    },
-    {
       title: "True Wireless Earbuds",
       img: "/img/earbuds.png",
       to: "#",
@@ -156,16 +150,25 @@ export const LookingFor: Record<string, LookingFor[]> = {
         "bg-gradient-to-bl from-[#c7c6d1] text-[#95A0C2] to-[#95A0C2]/5",
     },
     {
+      title: "NeckBands",
+      img: "/img/neckband.png",
+      to: "#",
+      className:
+        " bg-gradient-to-bl from-[#707E06]/40 text-[#707E06] to-[#F5FFA6]/50",
+    },
+    {
       title: "Smart Phone Back Cover",
       img: "/img/backcase.png",
       to: "#",
-      className: "bg-gradient-to-bl from-[#7bb9eb] to-[#20659E]/10",
+      className:
+        "bg-gradient-to-bl from-[#7bb9eb] text-[#20659E] to-[#20659E]/10",
     },
     {
       title: "Smart Phones Screen Guards",
       img: "/img/temper.png",
       to: "#",
-      className: "bg-gradient-to-bl from-[#09941D]/50 to-[#8AF098]/10",
+      className:
+        "bg-gradient-to-bl from-[#09941D]/50 text-[#09941D] to-[#8AF098]/10",
     },
   ],
   "Computer & Peripherals": [

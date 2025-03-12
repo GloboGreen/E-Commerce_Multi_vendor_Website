@@ -116,7 +116,7 @@ export default function CategoryWiseProduct({
           View All <ChevronRight className="ml-1 w-4" />
         </Link>
       </div>
-      <div className="w-full rounded-2xl bg-primary/5 p-4 lg:p-6">
+      <div className="w-full rounded-lg bg-primary/5 p-4 lg:p-6">
         {/* Top Brands & Categories */}
         <section className="mb-4">
           <div className="mb-4 flex items-center justify-between">
@@ -185,20 +185,20 @@ export default function CategoryWiseProduct({
                   className={`mx-2 basis-[80%] select-none pl-1 sm:basis-1/2 lg:basis-1/3 xl:basis-1/4`}
                 >
                   <div
-                    className={`p-4 ${item.className} flex h-[20vh] items-center justify-between gap-1 rounded-3xl`}
+                    className={`p-4 ${item.className} flex h-[20vh] items-center justify-between gap-1 rounded-2xl`}
                   >
                     <div className="flex h-full flex-col justify-between gap-4 py-4">
-                      <p className="max-w-36 text-start text-lg font-bold text-secondary sm:text-xl">
+                      <p className="max-w-36 text-start text-lg font-semibold text-secondary sm:text-xl">
                         {item.title}
                       </p>
                       <Link to={`/search?q=${encodeURIComponent(item.title)}`}>
-                        <ChevronRight className="h-9 w-9 rounded-full bg-white p-1.5 font-bold" />{" "}
+                        <ChevronRight className="h-10 w-10 rounded-full bg-white p-1.5 font-extrabold" />{" "}
                       </Link>
                     </div>
                     <img
                       src={item.img}
                       alt={item.title}
-                      className="mr-4 h-full w-24 object-contain sm:h-full sm:w-24"
+                      className="mr-4 h-full w-28 object-contain sm:h-full sm:w-24"
                     />
                   </div>
                 </CarouselItem>
