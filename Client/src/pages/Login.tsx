@@ -23,7 +23,7 @@ import { useSelector } from "react-redux";
 export default function Login() {
   const { loginUser } = useUser();
   const errorMessage = useSelector(
-    (state: RootState) => state.user.error || [],
+    (state: RootState) => state.user.errorLogin || [],
   );
   const form = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),

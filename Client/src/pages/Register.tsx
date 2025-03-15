@@ -1,3 +1,4 @@
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -10,16 +11,21 @@ import {
 import { Input } from "@/components/ui/input";
 import { RegisterSchema, WholesaleRegisterSchema } from "@/constants/schema";
 import { useUser } from "@/hooks/useUser";
+import { RootState } from "@/store/store";
+import { setIsWholsale } from "@/store/userSlice";
+
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Loader } from "lucide-react";
-import React from "react";
+import { AlertCircle, Loader } from "lucide-react";
 import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { z } from "zod";
 
 export default function Register() {
   const { registerUser } = useUser();
-  const [isWholesale, setIsWholesale] = React.useState(false);
+  const isWholesale = useSelector((state: RootState) => state.user.isWholesale);
+  const dispatch = useDispatch();
+
   const form = useForm<
     z.infer<typeof RegisterSchema | typeof WholesaleRegisterSchema>
   >({
@@ -51,6 +57,10 @@ export default function Register() {
       console.error("Error submitting form:", error);
     }
   }
+  const errorMessage = useSelector(
+    (state: RootState) => state.user.errorRegister || [],
+  );
+
   return (
     <div className="mt-10 flex w-full items-center justify-center py-10">
       <div className="flex max-w-xl flex-col gap-10 rounded-xl px-8">
@@ -60,7 +70,7 @@ export default function Register() {
             <button
               type="button"
               onClick={() => {
-                setIsWholesale(!isWholesale);
+                dispatch(setIsWholsale(!isWholesale));
                 form.setValue("isWholesale", !isWholesale); // Update form state
               }}
               className="text-sm text-blue-500 hover:text-blue-600"
@@ -77,6 +87,18 @@ export default function Register() {
             onSubmit={form.handleSubmit(onSubmit)}
             className="w-[350px] pb-24 md:w-[300px] lg:w-[500px]"
           >
+            {errorMessage.length > 0 && (
+              <Alert
+                className="mb-6 rounded-lg bg-destructive/10 p-3.5"
+                variant="destructive"
+              >
+                <AlertCircle className="h-4 w-4" />
+                <AlertTitle className="text-sm">Error</AlertTitle>
+                <AlertDescription className="text-xs">
+                  {errorMessage}
+                </AlertDescription>
+              </Alert>
+            )}
             <div className="mb-4 w-full">
               <FormField
                 control={form.control}

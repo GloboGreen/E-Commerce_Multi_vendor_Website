@@ -81,7 +81,7 @@ export default function HeroSection() {
           onMouseEnter={plugin.current.stop}
           onMouseLeave={plugin.current.reset}
         >
-          <CarouselContent className="ml-1 flex h-[35vh] gap-2 !rounded-2xl sm:h-[52vh]">
+          <CarouselContent className="ml-1 flex h-[35vh] gap-2 !rounded-2xl sm:h-[60vh]">
             {Bannerlist.map((_item, index) => (
               <CarouselItem
                 className="relative flex items-center justify-center rounded-2xl bg-cover bg-left bg-no-repeat"

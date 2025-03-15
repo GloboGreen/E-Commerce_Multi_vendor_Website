@@ -2,9 +2,14 @@ import { imageSchema, loginSchema, RegisterSchema } from "@/constants/schema";
 import { SummaryApi } from "@/constants/SummaryApi";
 import Axios from "@/lib/Axios";
 import { resetState } from "@/store/ProductSlice";
-import { persist } from "@/store/store";
-import { logout, setError, setUserDetails } from "@/store/userSlice";
-import { useDispatch } from "react-redux";
+import { persist, RootState } from "@/store/store";
+import {
+  logout,
+  setErrorLogin,
+  setErrorRegister,
+  setUserDetails,
+} from "@/store/userSlice";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { z } from "zod";
 import { useToast } from "./use-toast";
@@ -47,12 +52,28 @@ export function useUser() {
             "Your account has been created successfully. Welcome aboard!",
         });
       }
-    } catch (error) {
-      toast({
-        variant: "destructive",
-        title: "Something went Wrong",
-        description: "We couldn't able to sign. Please try again.",
-      });
+    } catch (error: any) {
+      if (error.response) {
+        const statusCode = error.response.status;
+        const isWholesale = useSelector(
+          (state: RootState) => state.user.isWholesale,
+        ); // Get the latest value
+
+        if (statusCode === 401 && isWholesale) {
+          dispatch(
+            setErrorRegister(
+              "The same email ID cannot be used for both standard and wholesale accounts. Please register with a different email for wholesale access.",
+            ),
+          );
+        } else {
+          dispatch(setErrorRegister("This email is already registered."));
+        }
+      }
+      // toast({
+      //   variant: "destructive",
+      //   title: "Something went Wrong",
+      //   description: "We couldn't able to sign. Please try again.",
+      // });
     }
   };
 
@@ -89,7 +110,7 @@ export function useUser() {
         if (statusCode === 403) {
           // Render specific error for wholesalers not approved
           dispatch(
-            setError(
+            setErrorLogin(
               "Wholesaler not approved. Approval process takes 2 to 3 days. Please wait.",
             ),
           );
@@ -97,22 +118,22 @@ export function useUser() {
         }
       }
       if (error.response.status === 401) {
-        dispatch(setError("User not Register"));
+        dispatch(setErrorLogin("User not Register"));
         return;
       }
       if (error.response.status === 404) {
-        dispatch(setError("Incorrect Password"));
+        dispatch(setErrorLogin("Incorrect Password"));
         return;
       }
       if (error.response.status === 423) {
-        dispatch(setError("Contact to Admin to activate your account"));
+        dispatch(setErrorLogin("Contact to Admin to activate your account"));
         return;
       }
       if (error.response.status === 409) {
-        dispatch(setError("Verify your email first"));
+        dispatch(setErrorLogin("Verify your email first"));
         return;
       }
-      dispatch(setError("Something went Wrong"));
+      dispatch(setErrorLogin("Something went Wrong"));
       return;
     }
   };

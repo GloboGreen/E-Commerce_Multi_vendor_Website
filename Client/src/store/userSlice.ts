@@ -25,15 +25,19 @@ interface users {
 interface userSlice {
   users: Array<users>;
   currentUser: users | null; // Logged-in user
-  error: string | null;
+  errorLogin: string | null;
+  errorRegister: string | null;
   warning: string | null;
+  isWholesale: boolean;
 }
 
 const initialState: userSlice = {
   users: [],
   currentUser: null,
-  error: null,
+  errorLogin: null,
+  errorRegister: null,
   warning: null,
+  isWholesale: false,
 };
 
 export const userSlice = createSlice({
@@ -48,11 +52,18 @@ export const userSlice = createSlice({
     },
     logout: (state) => {
       state.currentUser = null; // Reset logged-in user
-      state.error = null;
+      state.errorLogin = null;
+      state.errorRegister = null;
       state.warning = null;
     },
-    setError: (state, action: PayloadAction<string>) => {
-      state.error = action.payload; // Set the error message
+    setErrorLogin: (state, action: PayloadAction<string>) => {
+      state.errorLogin = action.payload; // Set the error message
+    },
+    setErrorRegister: (state, action: PayloadAction<string>) => {
+      state.errorRegister = action.payload; // Set the error message
+    },
+    setIsWholsale: (state, action: PayloadAction<boolean>) => {
+      state.isWholesale = action.payload;
     },
     setWarning: (state, action: PayloadAction<string>) => {
       state.warning = action.payload; // Set the warning message
@@ -62,7 +73,14 @@ export const userSlice = createSlice({
 
 export type UserState = userSlice & PersistPartial;
 
-export const { setUserDetails, setAllUsers, logout, setError, setWarning } =
-  userSlice.actions;
+export const {
+  setUserDetails,
+  setAllUsers,
+  logout,
+  setErrorLogin,
+  setErrorRegister,
+  setWarning,
+  setIsWholsale,
+} = userSlice.actions;
 
 export default userSlice.reducer;
