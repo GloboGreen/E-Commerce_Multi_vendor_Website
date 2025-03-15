@@ -31,7 +31,7 @@ export default function Footer() {
                       className="mb-4"
                     >
                       <Link
-                        to={item._id ? `/shop/${item._id}` : item._id}
+                        to={item._id ? `/shop/${item.name}` : item.name}
                         className="hover:underline"
                       >
                         {item.name}

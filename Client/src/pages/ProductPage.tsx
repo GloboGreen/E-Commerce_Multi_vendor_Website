@@ -433,21 +433,46 @@ export default function ProductPage() {
           </div>
           <Separator className="mb-2" />
           <div className="mb-2 flex flex-col gap-4 p-2">
-            {selectedProduct?.wholesalePrice ? (
+            {selectedProduct?.variantId ? (
               <p className="text-sm font-semibold text-secondary/70">
-                Availability: Wholesale & Retail
+                Availability: Wholesale
               </p>
             ) : (
               <p className="text-sm font-semibold text-secondary/70">
                 Availability: stock
               </p>
             )}
-            <p className="text-sm font-semibold text-secondary/70">
-              Type: Samsung
-            </p>
-            <p className="text-sm font-semibold text-secondary/70">
-              Brand: Samsung
-            </p>
+            {selectedProduct.categoryId && (
+              <p className="text-sm font-semibold text-secondary/70">
+                Type: {categoryLookup(selectedProduct?.categoryId)}
+              </p>
+            )}
+            {selectedProduct?.brandName && (
+              <p className="text-sm font-semibold text-secondary/70">
+                Brand: {selectedProduct.brandName}
+              </p>
+            )}
+            <ul className="flex flex-col gap-4 text-sm text-secondary/80">
+              {[
+                ...selectedProduct.specifications, // Existing specs
+                ...Array(
+                  Math.max(0, 5 - selectedProduct.specifications.length),
+                ).fill({
+                  key: "N/A",
+                  value: "N/A",
+                }), // Fill missing slots with "N/A"
+              ]
+                .slice(0, 3)
+                .map((spec, index) => (
+                  <li
+                    key={index}
+                    className="text-sm font-semibold text-secondary/70"
+                  >
+                    <span className="font-medium">{spec.key}:</span>{" "}
+                    <span>{spec.value}</span>
+                  </li>
+                ))}
+            </ul>
           </div>
           <DropdownMenu>
             <DropdownMenuTrigger className="flex items-center gap-2 rounded-lg border p-2 px-4 text-sm font-semibold text-secondary/70 hover:bg-secondary hover:text-secondary-foreground">
