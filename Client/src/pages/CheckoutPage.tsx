@@ -170,22 +170,22 @@ export default function CheckoutPage() {
   return (
     <section>
       {isloading && <div className="absolute h-full w-full bg-white/60"></div>}
-      <Breadcrumbs
-        path="/shop"
-        pathName="shop"
-        className="mt-52 lg:mt-56"
-        finalPathName="Checkout"
-      />
       <MaxWidthWrapper className="my-8 flex flex-col gap-4">
+        <Breadcrumbs
+          path="/shop"
+          pathName="shop /"
+          className="mt-48 lg:mt-56"
+          finalPathName="Checkout"
+        />
         <div className="flex flex-col gap-2">
           <h1 className="text-4xl font-bold">Checkout</h1>
-          <p className="text-sm text-secondary/80 dark:text-secondary-foreground/70">
-            {isLoggedIn && "Already have an account? Click here to"}{" "}
+          {/* <p className="text-sm text-secondary/80 dark:text-secondary-foreground/70">
+            {!isLoggedIn && "Already have an account? Click here to"}{" "}
             <span className="text-primary/70">
               <Link to="/login">Sign in</Link>
             </span>
             .
-          </p>
+          </p> */}
         </div>
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-2">
           <Accordion type="single" collapsible defaultValue="">
